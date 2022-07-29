@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.model.Ids;
+package ro.msg.learning.shop.model.ids;
 
 
 import ro.msg.learning.shop.model.Product;

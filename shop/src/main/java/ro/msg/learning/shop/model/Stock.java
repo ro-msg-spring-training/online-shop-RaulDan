@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ro.msg.learning.shop.model.Ids.StockId;
+import ro.msg.learning.shop.model.ids.StockId;
 
 import javax.persistence.*;
 
