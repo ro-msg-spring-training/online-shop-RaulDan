@@ -19,7 +19,7 @@ public class ProductOrder {
     private Integer id;
     private LocalDateTime createdAt;
     @ManyToOne
-    private Location location;
+    private Location shippedFrom;
     private String addressCountry;
     private String addressCounty;
     private String addressCity;
