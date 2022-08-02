@@ -22,8 +22,6 @@ public class Customer {
     private String lastName;
     private String username;
     private String password;
-    private String emailAddress;
-    @OneToMany
-    private List<ProductOrder> orders;
+    private String email;
 
 }

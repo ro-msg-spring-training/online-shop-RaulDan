@@ -7,4 +7,6 @@ public enum Status {
     CATEGORY_NOT_FOUND,
     EXISTS,
     ERROR,
+    INSUFFICIENT_STOCK,
+    ORDER_NOT_CREATED
 }

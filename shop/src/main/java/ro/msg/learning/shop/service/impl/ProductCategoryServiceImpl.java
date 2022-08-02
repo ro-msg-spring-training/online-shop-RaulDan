@@ -11,10 +11,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductCategoryServiceImpl implements ProductCategoryService {
-
     private final ProductCategoryRepository productCategoryRepository;
-
-
     @Override
     public Optional<ProductCategory> findByName(String name) {
         return productCategoryRepository.getProductCategoryByName(name);

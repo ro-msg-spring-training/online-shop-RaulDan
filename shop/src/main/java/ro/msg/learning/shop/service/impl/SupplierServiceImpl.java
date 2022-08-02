@@ -11,14 +11,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
-
     private final SupplierRepository supplierRepository;
-
 
     @Override
     public Optional<Supplier> findByName(String name) {
         return supplierRepository.getSupplierByName(name);
     }
-
-
 }

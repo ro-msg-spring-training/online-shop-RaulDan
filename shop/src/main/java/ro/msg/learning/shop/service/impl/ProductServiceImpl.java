@@ -3,6 +3,7 @@ package ro.msg.learning.shop.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.model.Product;
 import ro.msg.learning.shop.model.ProductCategory;
 import ro.msg.learning.shop.model.Supplier;
@@ -84,12 +85,13 @@ public class ProductServiceImpl implements ProductService {
             return Status.PRODUCT_NOT_FOUND;
         }
         productRepository.delete(product.get());
-        return null;
+        return Status.SUCCESS;
     }
 
     @Override
-    public Product getProduct(Integer idProduct) {
-        return productRepository.findById(idProduct).get();
+    public Product getProduct(Integer idProduct) throws ProductNotFoundException{
+
+        return productRepository.findById(idProduct).orElseThrow(()->new ProductNotFoundException(idProduct));
     }
 
     @Override

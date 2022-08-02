@@ -17,9 +17,11 @@ import javax.persistence.*;
 public class OrderDetail {
     @Id
     @ManyToOne
+    @JoinColumn(name = "PRODUCT_ORDER")
     private ProductOrder productOrder;
     @Id
     @ManyToOne
+    @JoinColumn(name = "PRODUCT")
     private Product product;
     private Integer quantity;
 }

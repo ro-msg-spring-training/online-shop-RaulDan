@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,8 +19,13 @@ public class ProductOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDateTime createdAt;
+
     @ManyToOne
+    @JoinColumn(name = "SHIPPED_FROM_ID")
     private Location shippedFrom;
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customer;
     private String addressCountry;
     private String addressCounty;
     private String addressCity;
