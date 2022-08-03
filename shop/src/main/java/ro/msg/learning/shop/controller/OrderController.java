@@ -31,9 +31,14 @@ public class OrderController {
     @PostMapping(value = "/createOrder")
     public ResponseEntity<ProductOrder> createOrder(@RequestBody OrderCreationDto orderCreationDto) {
 
-        orderCreationDto.getProducts().forEach(e -> e.setProduct(productService.getProduct(e.getProductId())));
-        ProductOrder productOrder = orderMapper.toOrderFromDto(orderCreationDto);
-        List<OrderDetail> orderDetails = orderCreationDto.getProducts().stream().map(orderDetailsMapper::toOrderDetailFromOrderProductDto).collect(Collectors.toList());
-        return new ResponseEntity<>(orderService.createOrder(productOrder, orderDetails), HttpStatus.OK);
+        List<OrderDetail> orderDetails = obtainOrderDetails(orderCreationDto);
+
+        return new ResponseEntity<>(orderService.createOrder(orderMapper.toOrderFromDto(orderCreationDto), orderDetails), HttpStatus.OK);
+    }
+
+    private List<OrderDetail> obtainOrderDetails(OrderCreationDto orderCreationDto){
+        return orderCreationDto.getProducts().stream().map(e -> OrderDetail.builder()
+                .product(productService.getProduct(e.getProductId()))
+                .quantity(e.getQuantity()).build()).collect(Collectors.toList());
     }
 }

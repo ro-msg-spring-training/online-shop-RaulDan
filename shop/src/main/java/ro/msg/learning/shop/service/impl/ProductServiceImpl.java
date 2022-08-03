@@ -36,6 +36,7 @@ public class ProductServiceImpl implements ProductService {
         }
         product.setSupplier(supplier.get());
         product.setCategory(productCategory.get());
+        System.out.println(product);
         productRepository.save(product);
         return Status.SUCCESS;
     }

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS customer (
                                         email NVARCHAR(100) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS product (
-                                       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE ,
                                        name NVARCHAR(100) NOT NULL,
                                        description NVARCHAR(255) NOT NULL,
                                        price NUMERIC NOT NULL,

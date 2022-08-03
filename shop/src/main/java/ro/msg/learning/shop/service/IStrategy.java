@@ -7,5 +7,6 @@ import ro.msg.learning.shop.model.Stock;
 import java.util.List;
 
 public interface IStrategy {
+    String errorMessage="There is no sufficient stock to create the order you asked!";
     List<Stock> createOrder(List<OrderDetail> products) throws MissingStockException;
 }

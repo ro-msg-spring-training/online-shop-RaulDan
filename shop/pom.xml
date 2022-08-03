@@ -70,9 +70,9 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>9.0.1</version>
                 <configuration>
-                    <url>jdbc:h2:~/Documents/App/online-shop-RaulDan/shop</url>
                     <user>sa</user>
                     <password></password>
+                    <url>jdbc:h2:~/shop/main/resources/database</url>
                 </configuration>
 
             </plugin>
