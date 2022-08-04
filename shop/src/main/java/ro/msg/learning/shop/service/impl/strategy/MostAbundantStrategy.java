@@ -40,7 +40,7 @@ public class MostAbundantStrategy implements IStrategy {
 
         }
         if(result.size()!= products.size()){
-            throw new MissingStockException(ERROR_Message);
+            throw new MissingStockException(ERROR_MESSAGE);
         }
         editStocksQuantity(result,products);
         return result;
