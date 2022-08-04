@@ -17,4 +17,14 @@ public class SupplierServiceImpl implements SupplierService {
     public Optional<Supplier> findByName(String name) {
         return supplierRepository.getSupplierByName(name);
     }
+
+    @Override
+    public void save(Supplier supplier) {
+        supplierRepository.save(supplier);
+    }
+
+    @Override
+    public void deleteAll() {
+        supplierRepository.deleteAll();
+    }
 }

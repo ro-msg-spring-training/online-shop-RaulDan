@@ -10,4 +10,7 @@ public interface StockService {
     List<Stock> findAll();
     List<Stock> findAllByLocation(Location location);
     void editQuantity(Stock stock,Integer quantity);
+
+    void save(Stock stock);
+    void deleteAll();
 }

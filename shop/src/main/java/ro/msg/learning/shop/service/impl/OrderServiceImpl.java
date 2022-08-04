@@ -9,14 +9,14 @@ import ro.msg.learning.shop.model.*;
 import ro.msg.learning.shop.repository.ProductOrderRepository;
 import ro.msg.learning.shop.service.CustomerService;
 import ro.msg.learning.shop.service.OrderDetailService;
-import ro.msg.learning.shop.service.OrderService;
+import ro.msg.learning.shop.service.ProductOrderService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements ProductOrderService {
     private final StrategyConfiguration configuration;
     private final CustomerService customerService;
     private final OrderDetailService orderDetailService;
@@ -37,5 +37,10 @@ public class OrderServiceImpl implements OrderService {
         } catch (MissingStockException e) {
             throw new OrderNotCreatedException(e.getMessage() + " | " + "Could not create the order you asked!");
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        productOrderRepository.deleteAll();
     }
 }

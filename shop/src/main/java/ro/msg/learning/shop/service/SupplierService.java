@@ -7,4 +7,8 @@ import java.util.Optional;
 
 public interface SupplierService {
     Optional<Supplier> findByName(String name);
+
+    void save(Supplier supplier);
+
+    void deleteAll();
 }

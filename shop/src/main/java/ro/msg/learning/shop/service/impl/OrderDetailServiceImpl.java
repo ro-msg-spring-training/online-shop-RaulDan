@@ -15,4 +15,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public void save(OrderDetail orderDetail) {
         orderDetailsRepository.save(orderDetail);
     }
+
+    @Override
+    public void deleteAll() {
+        orderDetailsRepository.deleteAll();
+    }
 }

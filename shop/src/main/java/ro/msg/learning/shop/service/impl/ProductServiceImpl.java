@@ -101,5 +101,15 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
+    @Override
+    public void save(Product product) {
+        productRepository.save(product);
+    }
+
+    @Override
+    public void deleteAll() {
+        productRepository.deleteAll();
+    }
+
 
 }

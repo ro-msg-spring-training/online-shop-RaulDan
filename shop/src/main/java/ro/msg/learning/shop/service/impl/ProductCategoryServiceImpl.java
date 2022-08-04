@@ -16,4 +16,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public Optional<ProductCategory> findByName(String name) {
         return productCategoryRepository.getProductCategoryByName(name);
     }
+
+    @Override
+    public void save(ProductCategory productCategory) {
+        productCategoryRepository.save(productCategory);
+    }
+
+    @Override
+    public void deleteAll(){
+        productCategoryRepository.deleteAll();
+    }
 }

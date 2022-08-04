@@ -7,4 +7,6 @@ import java.util.List;
 public interface LocationService {
 
     List<Location> findAll();
+    void save(Location location);
+    void deleteAll();
 }

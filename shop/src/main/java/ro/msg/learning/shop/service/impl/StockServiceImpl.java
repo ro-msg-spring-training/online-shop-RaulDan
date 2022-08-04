@@ -32,4 +32,14 @@ public class StockServiceImpl implements StockService {
         stock.setQuantity(newQuantity);
         stockRepository.save(stock);
     }
+
+    @Override
+    public void save(Stock stock) {
+        stockRepository.save(stock);
+    }
+
+    @Override
+    public void deleteAll() {
+        stockRepository.deleteAll();
+    }
 }

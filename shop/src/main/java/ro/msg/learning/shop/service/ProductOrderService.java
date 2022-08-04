@@ -7,7 +7,9 @@ import ro.msg.learning.shop.model.ProductOrder;
 
 import java.util.List;
 
-public interface OrderService {
+public interface ProductOrderService {
 
     ProductOrder createOrder(ProductOrder productOrder, List<OrderDetail> orderDetails) throws OrderNotCreatedException;
+
+    void deleteAll();
 }

@@ -1,110 +1,87 @@
 package ro.msg.learning.shop.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import ro.msg.learning.shop.configurations.StrategyConfiguration;
-import ro.msg.learning.shop.model.*;
-import ro.msg.learning.shop.repository.CustomerRepository;
-import ro.msg.learning.shop.repository.OrderDetailsRepository;
-import ro.msg.learning.shop.repository.ProductOrderRepository;
-import ro.msg.learning.shop.repository.StockRepository;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import ro.msg.learning.shop.ShopApplication;
+import ro.msg.learning.shop.dtos.orders.OrderCreationDto;
+import ro.msg.learning.shop.dtos.orders.OrderProductDto;
+import ro.msg.learning.shop.model.Product;
+import ro.msg.learning.shop.service.OrderDetailService;
+import ro.msg.learning.shop.service.ProductOrderService;
+import ro.msg.learning.shop.service.ProductService;
 import ro.msg.learning.shop.service.StockService;
-import ro.msg.learning.shop.service.impl.CustomerServiceImpl;
-import ro.msg.learning.shop.service.impl.LocationServiceImpl;
-import ro.msg.learning.shop.service.impl.OrderDetailServiceImpl;
-import ro.msg.learning.shop.service.impl.OrderServiceImpl;
-import ro.msg.learning.shop.service.impl.strategy.SingleLocationStrategy;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
-@TestPropertySource(locations="classpath:application.properties")
-public class OrderServiceImplTest {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-    private static final String addressCountry = "Romania";
-    private static final String addressCity = "Cluj-Napoca";
-    private static final String addressCounty = "Cluj";
-    private static final String addressStreet = "strada Zorilor";
 
-    private static final String muresCounty = "Mures";
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+        classes = ShopApplication.class)
+@AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:application-test.properties")
+@ActiveProfiles("test")
+@RunWith(SpringRunner.class)
+class OrderServiceImplTest {
 
-    private static final String muresCity = "Targu Mures";
-    @Mock
-    private CustomerRepository customerRepository;
-
-    private StrategyConfiguration configuration;
-
-    @Mock
-    private SingleLocationStrategy singleLocationStrategy;
-    @Mock
-    private StockRepository stockRepository;
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ProductService productService;
+    @Autowired
     private StockService stockService;
-    @Mock
-    private LocationServiceImpl locationService;
-    @Mock
-    private ProductOrderRepository productOrderRepository;
 
-    @Mock
-    private OrderDetailsRepository orderDetailsRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
+    private OrderCreationDto orderCreationDto;
 
-    @InjectMocks
-    private CustomerServiceImpl customerService;
-
-    @InjectMocks
-    private OrderDetailServiceImpl orderDetailService;
-
-    @InjectMocks
-    private OrderServiceImpl orderService;
-    private Location locationCluj;
-    private Location locationMures;
-    private Customer customer;
-    private ProductOrder order;
-    private ProductCategory category;
-    private Supplier supplierHP;
-    private Supplier supplierDELL;
-    private Product productLaptopHP;
-    private Product productLaptopDELL;
-    private Stock stockLaptopHPProductCluj;
-    private Stock stockLaptopDELLProductCluj;
-    private Stock stockLaptopHPProductTarguMures;
-    private Stock stockLaptopDELLProductTarguMures;
-
-    private List<OrderDetail> orderDetails;
-    
     @BeforeEach
-    void initialiseData() {
-        this.locationCluj = new Location(1, "Cluj-Napoca Location", addressCountry, addressCity, addressCounty, addressStreet);
-        this.locationMures = new Location(2, "Targu Mures Location", addressCountry, muresCity, muresCounty, addressStreet);
-        this.customer = Customer.builder().id(2).email("raul.calugar@yahoo.ro").build();
-        this.order = ProductOrder.builder().addressCountry(addressCountry).addressCounty(addressCounty).addressCity(addressCity).addressStreetAddress(addressStreet).createdAt(LocalDateTime.now()).build();
-        this.category = ProductCategory.builder().id(1).name("IT").description("IT Products").build();
-        this.supplierHP = Supplier.builder().id(1).name("HP").build();
-        this.supplierDELL = Supplier.builder().id(2).name("DELL").build();
-        this.productLaptopHP = Product.builder().id(1).category(category).supplier(supplierHP).name("Laptop HP").build();
-        this.productLaptopDELL = Product.builder().id(2).category(category).supplier(supplierDELL).name("Laptop DELL").build();
-        this.stockLaptopHPProductCluj = Stock.builder().location(locationCluj).product(productLaptopHP).quantity(10).build();
-        this.stockLaptopDELLProductCluj = Stock.builder().location(locationCluj).product(productLaptopDELL).quantity(8).build();
-        this.stockLaptopHPProductTarguMures = Stock.builder().location(locationMures).product(productLaptopHP).quantity(20).build();
-        this.stockLaptopDELLProductTarguMures = Stock.builder().location(locationMures).product(productLaptopDELL).quantity(30).build();
-        this.orderDetails=new ArrayList<>();
-        OrderDetail orderDetail=OrderDetail.builder().product(productLaptopHP).quantity(7).build();
-        this.orderDetails.add(orderDetail);
-        orderDetail=OrderDetail.builder().product(productLaptopDELL).quantity(8).build();
-        this.orderDetails.add(orderDetail);
+    void initialiseTest() throws Exception {
+
+        mockMvc.perform(post("/test/populateDatabase")).andExpect(status().isOk());
+        Product productLaptopHP = productService.getProduct(1);
+        Product productLaptopDELL = productService.getProduct(2);
+        List<OrderProductDto> products=new ArrayList<>();
+        OrderProductDto dto=OrderProductDto.builder().product(productLaptopHP).productId(productLaptopHP.getId()).quantity(5).build();
+        products.add(dto);
+        dto=OrderProductDto.builder().product(productLaptopDELL).productId(productLaptopDELL.getId()).quantity(6).build();
+        products.add(dto);
+        orderCreationDto=OrderCreationDto.builder().build();
+        orderCreationDto.setCreatedAt(LocalDateTime.now());
+        orderCreationDto.setDeliveryAddressCity("Cluj-Napoca");
+        orderCreationDto.setDeliveryAddressCountry("Romania");
+        orderCreationDto.setDeliveryAddressStreet("Strada Observatorului");
+        orderCreationDto.setDeliveryAddressCounty("Cluj");
+        orderCreationDto.setProducts(products);
 
     }
 
     @Test
-    public void checkOrder() {
-        ProductOrder productOrder;
-        productOrder=orderService.createOrder(this.order,this.orderDetails);
+    void createOrderSuccess() throws Exception {
+        mockMvc.perform(post("/createOrder")
+                .content(objectMapper.writeValueAsString(orderCreationDto))
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().is2xxSuccessful());
+
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mockMvc.perform(post("/test/clearDatabase")).andExpect(status().isOk());
     }
 }

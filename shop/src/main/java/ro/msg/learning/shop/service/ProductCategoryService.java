@@ -7,4 +7,7 @@ import java.util.Optional;
 public interface ProductCategoryService {
 
      Optional<ProductCategory> findByName(String name);
+     void save(ProductCategory productCategory);
+
+     void deleteAll();
 }

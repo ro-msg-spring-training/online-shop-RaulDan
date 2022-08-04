@@ -5,4 +5,6 @@ import ro.msg.learning.shop.model.OrderDetail;
 public interface OrderDetailService {
 
     void save(OrderDetail orderDetail);
+
+    void deleteAll();
 }
