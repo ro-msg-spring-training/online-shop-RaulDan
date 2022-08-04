@@ -63,41 +63,41 @@ public class OrderServiceImplTest {
 
     @InjectMocks
     private OrderServiceImpl orderService;
-    private Location location1;
-    private Location location2;
+    private Location locationCluj;
+    private Location locationMures;
     private Customer customer;
     private ProductOrder order;
     private ProductCategory category;
-    private Supplier supplier1;
-    private Supplier supplier2;
-    private Product product1;
-    private Product product2;
-    private Stock stock1Cluj;
-    private Stock stock2Cluj;
-    private Stock stock1Mures;
-    private Stock stock2Mures;
+    private Supplier supplierHP;
+    private Supplier supplierDELL;
+    private Product productLaptopHP;
+    private Product productLaptopDELL;
+    private Stock stockLaptopHPProductCluj;
+    private Stock stockLaptopDELLProductCluj;
+    private Stock stockLaptopHPProductTarguMures;
+    private Stock stockLaptopDELLProductTarguMures;
 
     private List<OrderDetail> orderDetails;
     
     @BeforeEach
     void initialiseData() {
-        this.location1 = new Location(1, "Cluj-Napoca Location", addressCountry, addressCity, addressCounty, addressStreet);
-        this.location2 = new Location(2, "Targu Mures Location", addressCountry, muresCity, muresCounty, addressStreet);
+        this.locationCluj = new Location(1, "Cluj-Napoca Location", addressCountry, addressCity, addressCounty, addressStreet);
+        this.locationMures = new Location(2, "Targu Mures Location", addressCountry, muresCity, muresCounty, addressStreet);
         this.customer = Customer.builder().id(2).email("raul.calugar@yahoo.ro").build();
         this.order = ProductOrder.builder().addressCountry(addressCountry).addressCounty(addressCounty).addressCity(addressCity).addressStreetAddress(addressStreet).createdAt(LocalDateTime.now()).build();
         this.category = ProductCategory.builder().id(1).name("IT").description("IT Products").build();
-        this.supplier1 = Supplier.builder().id(1).name("HP").build();
-        this.supplier2 = Supplier.builder().id(2).name("DELL").build();
-        this.product1 = Product.builder().id(1).category(category).supplier(supplier1).name("Laptop HP").build();
-        this.product2 = Product.builder().id(2).category(category).supplier(supplier2).name("Laptop DELL").build();
-        this.stock1Cluj = Stock.builder().location(location1).product(product1).quantity(10).build();
-        this.stock2Cluj = Stock.builder().location(location1).product(product2).quantity(8).build();
-        this.stock1Mures = Stock.builder().location(location2).product(product1).quantity(20).build();
-        this.stock2Mures = Stock.builder().location(location2).product(product2).quantity(30).build();
+        this.supplierHP = Supplier.builder().id(1).name("HP").build();
+        this.supplierDELL = Supplier.builder().id(2).name("DELL").build();
+        this.productLaptopHP = Product.builder().id(1).category(category).supplier(supplierHP).name("Laptop HP").build();
+        this.productLaptopDELL = Product.builder().id(2).category(category).supplier(supplierDELL).name("Laptop DELL").build();
+        this.stockLaptopHPProductCluj = Stock.builder().location(locationCluj).product(productLaptopHP).quantity(10).build();
+        this.stockLaptopDELLProductCluj = Stock.builder().location(locationCluj).product(productLaptopDELL).quantity(8).build();
+        this.stockLaptopHPProductTarguMures = Stock.builder().location(locationMures).product(productLaptopHP).quantity(20).build();
+        this.stockLaptopDELLProductTarguMures = Stock.builder().location(locationMures).product(productLaptopDELL).quantity(30).build();
         this.orderDetails=new ArrayList<>();
-        OrderDetail orderDetail=OrderDetail.builder().product(product1).quantity(7).build();
+        OrderDetail orderDetail=OrderDetail.builder().product(productLaptopHP).quantity(7).build();
         this.orderDetails.add(orderDetail);
-        orderDetail=OrderDetail.builder().product(product2).quantity(8).build();
+        orderDetail=OrderDetail.builder().product(productLaptopDELL).quantity(8).build();
         this.orderDetails.add(orderDetail);
 
     }
