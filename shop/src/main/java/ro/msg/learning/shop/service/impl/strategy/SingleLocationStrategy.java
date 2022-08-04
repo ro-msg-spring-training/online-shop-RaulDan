@@ -34,7 +34,7 @@ public class SingleLocationStrategy implements IStrategy {
                 return Arrays.asList(stocks.get(0));
             }
         }
-        throw new MissingStockException(errorMessage);
+        throw new MissingStockException(ERROR_Message);
     }
 
     private int checkStocksAvailability(List<OrderDetail> products, List<Stock> stocks) {

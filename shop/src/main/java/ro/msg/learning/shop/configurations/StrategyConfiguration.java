@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.configurations;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import ro.msg.learning.shop.utils.Strategy;
 
 @Configuration
 @RequiredArgsConstructor
+@Data
 public class StrategyConfiguration {
 
     @Value("${app.strategy}")

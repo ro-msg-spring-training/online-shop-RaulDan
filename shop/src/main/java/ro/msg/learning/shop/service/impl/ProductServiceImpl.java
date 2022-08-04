@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
     private final SupplierService supplierService;
 
     @Override
+    @Transactional
     public Status addProduct(Product product) {
         Optional<Supplier> supplier=supplierService.findByName(product.getSupplier().getName());
         if(!supplier.isPresent()){
@@ -36,7 +37,6 @@ public class ProductServiceImpl implements ProductService {
         }
         product.setSupplier(supplier.get());
         product.setCategory(productCategory.get());
-        System.out.println(product);
         productRepository.save(product);
         return Status.SUCCESS;
     }
@@ -79,6 +79,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Status deleteProduct(Integer idProduct) {
 
         Optional<Product> product=productRepository.findById(idProduct);
