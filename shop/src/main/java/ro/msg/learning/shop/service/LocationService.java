@@ -9,4 +9,6 @@ public interface LocationService {
     List<Location> findAll();
     void save(Location location);
     void deleteAll();
+
+    Location getLocationById(Integer id);
 }

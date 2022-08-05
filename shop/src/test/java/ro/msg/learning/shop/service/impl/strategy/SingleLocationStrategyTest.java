@@ -119,7 +119,7 @@ class SingleLocationStrategyTest {
 
     // Check if MissingStockException Is Thrown
     @Test
-    void noStockAvailable(){
+    void noStockAvailableTest(){
         init();
 
         this.orderDetails = new ArrayList<>();
@@ -131,7 +131,6 @@ class SingleLocationStrategyTest {
         when(locationService.findAll()).thenReturn(locations);
         when(stockService.findAllByLocation(locationCluj)).thenReturn(Arrays.asList(stockLaptopDELLProductCluj, stockLaptopHPProductCluj));
         when(stockService.findAllByLocation(locationMures)).thenReturn(Arrays.asList(stockLaptopDELLProductTarguMures,stockLaptopHPProductTarguMures));
-        // Method call
         // Assert
         assertThrows(MissingStockException.class,()->singleLocationStrategy.createOrder(orderDetails));
     }
