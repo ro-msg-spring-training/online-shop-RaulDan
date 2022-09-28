@@ -1,5 +1,6 @@
-package ro.msg.learning.shop.configurations;
+package ro.msg.learning.shop.configurations.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +11,11 @@ import ro.msg.learning.shop.utils.SecurityType;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
+@Order(99)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final AppBasicAuthEntryPoint authEntryPoint;
     @Value("${app.security}")
     private String securityType;
 
@@ -20,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public ISecurity chooseSecurityType() {
 
         if (securityType.equals(SecurityType.BASIC_SECURITY.toString())) {
-            return new BasicSecurity();
+            return new BasicSecurity(authEntryPoint);
         }
         return new FormSecurity();
     }

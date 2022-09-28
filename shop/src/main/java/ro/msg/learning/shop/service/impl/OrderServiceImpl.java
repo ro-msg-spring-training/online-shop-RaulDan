@@ -2,7 +2,7 @@ package ro.msg.learning.shop.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ro.msg.learning.shop.configurations.StrategyConfiguration;
+import ro.msg.learning.shop.configurations.strategy.StrategyConfiguration;
 import ro.msg.learning.shop.exceptions.MissingStockException;
 import ro.msg.learning.shop.exceptions.OrderNotCreatedException;
 import ro.msg.learning.shop.model.*;

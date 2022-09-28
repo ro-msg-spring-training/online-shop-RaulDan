@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.configurations;
+package ro.msg.learning.shop.configurations.strategy;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

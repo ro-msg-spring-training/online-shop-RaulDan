@@ -27,4 +27,9 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteAll() {
         customerRepository.deleteAll();
     }
+
+    @Override
+    public Customer findCustomerByUsername(String username) {
+        return customerRepository.findFirstByUsername(username).get();
+    }
 }
