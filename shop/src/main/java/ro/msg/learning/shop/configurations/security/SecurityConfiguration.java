@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import ro.msg.learning.shop.utils.SecurityType;
 
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
-@Order(99)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final AppBasicAuthEntryPoint authEntryPoint;
@@ -22,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public ISecurity chooseSecurityType() {
-
+        System.out.println(securityType);
         if (securityType.equals(SecurityType.BASIC_SECURITY.toString())) {
             return new BasicSecurity(authEntryPoint);
         }
