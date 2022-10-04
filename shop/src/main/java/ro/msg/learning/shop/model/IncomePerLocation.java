@@ -7,23 +7,19 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-public class Revenue {
+public class IncomePerLocation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String orderCreatedAt;
     @ManyToOne
-    private Customer customer;
-    private BigDecimal totalIncome;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<IncomePerLocation> income;
+    private Location location;
+    private BigDecimal income;
+    private String orderCreationDate;
 }

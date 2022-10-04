@@ -71,4 +71,11 @@ create table if not exists revenue
     sum DOUBLE PRECISION
 );
 
+create table if not exists income_per_location(
+    id integer not null  primary key auto_increment,
+    location integer not null references location(id),
+    income decimal,
+    orderCreationDate varchar(255)
+    );
+
 

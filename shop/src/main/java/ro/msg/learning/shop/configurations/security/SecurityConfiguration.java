@@ -17,7 +17,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${app.security}")
     private String securityType;
 
-
     @Bean
     public ISecurity chooseSecurityType() {
         System.out.println(securityType);

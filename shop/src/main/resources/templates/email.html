@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Order Creation Confirmation</title>
+</head>
+<body>
+<h1 th:text="#{message.mainMessage}"></h1>
+<h1 th:text="${createdAt}"></h1>
+<p th:text="#{message.orderDetails}"></p>
+<ul th:each="orderDetail: ${orderDetails}">
+    <li th:text="${orderDetail.getProduct().getName()}"></li>
+</ul>
+</body>
+</html>
